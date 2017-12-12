@@ -6,6 +6,4 @@
 * 使用trim，tostring等方法，来确定要修改的头部    
 * 我认为的难点是改写方法是需要判断字符串参数是否以'x-'开头，从而进行从url中获取或者从http头部获取的选择    
 * 代码中中有一个没有匹配过的}，导致测试时出现问题    
-* 调试运行：   
-![Image]https://github.com/yijieliu/method-override/edit/master/doc/9731}IL(ORB}LE97O([YL2Q.png)   
-![Image]https://github.com/yijieliu/method-override/edit/master/doc/5I%3VZ9WT]H~XJ3}2_6F(M9.png)   
+* 调试运行:通过调试运行，了解了方法重载对于头部，getter，methods的要求
