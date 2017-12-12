@@ -1,5 +1,5 @@
 # method-override
-  当客户端不支持你使用PUT或者DELETE等HTTP谓词时，你可以使用它来解决 
+  当客户端不支持你使用PUT或者DELETE等HTTP方法时，你可以使用它来解决 
 # Install   
   这是通过npm注册表的可使用的node.js模块，通过npm安装指令可以完成安装。   
   
@@ -49,6 +49,60 @@ function onload () {
 ```   
 
 ## override using a query value   
-使用查询字符串的值来重载方法，指定查询字符串的键作为methodOverride函数的字符串参数
+使用查询字符串的值来重载方法，指定查询字符串的键作为methodOverride函数的字符串参数。然后把重载方法作为值发送post请求到url，查询字符串作为键。这种方法使用时通常与HTML中的表单元素结合。    
 
-    
+```var express = require('express')
+var methodOverride = require('method-override')
+var app = express()
+
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
+```   
+
+和HTML中的<form>结合使用的例子：   
+```<form method="POST" action="/resource?_method=DELETE">
+  <button type="submit">Delete resource</button>
+</form>
+```   
+## multiple format support（多种格式支持）    
+```var express = require('express')
+var methodOverride = require('method-override')
+var app = express()
+
+// override with different headers; last one takes precedence
+app.use(methodOverride('X-HTTP-Method'))          // Microsoft
+app.use(methodOverride('X-HTTP-Method-Override')) // Google/GData
+app.use(methodOverride('X-Method-Override'))      // IBM    
+```
+## custom logic   
+你可以通过getter实现多种函数的自定义编辑。以下的编辑方式可以在req.body中出现。    
+```var bodyParser = require('body-parser')
+var express = require('express')
+var methodOverride = require('method-override')
+var app = express()
+
+// NOTE: when using req.body, you must fully parse the request body
+//       before you call methodOverride() in your middleware stack,
+//       otherwise req.body will not be populated.
+app.use(bodyParser.urlencoded())
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
+```   
+
+查询重载和HTML<form>结合的例子：   
+  ```<!-- enctype must be set to the type you will parse before methodOverride() -->
+<form method="POST" action="/resource" enctype="application/x-www-form-urlencoded">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete resource</button>
+</form>   
+  ```   
+   
+   
+##  License   
+  MIT
