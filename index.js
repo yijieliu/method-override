@@ -13,11 +13,11 @@
  * Module dependencies.   依赖的模块
  */
 
-var debug = require('debug')('method-override')  //请求debug模块，输出method-override众德信息
+var debug = require('debug')('method-override')  //请求debug模块，输出method-override中的信息
 var methods = require('methods')  //请求methods模块
 var parseurl = require('parseurl')
-var querystring = require('querystring')  //请求querystring，parseurl模块，用来查询字符串中的参数部分，并实现url参数字符与参数对象的仙湖转化
-var vary = require('vary')  //响应头包含vary字段，且vary的内容对象含有User-Agent，格式为Vary:User-Adent,Cookie,惊醒方法重写之后，缓存服务器按照改写的目的方法分类缓存，可以将X-HEADER=REWRITE添加到vary中
+var querystring = require('querystring')  //请求querystring，parseurl模块，用来查询字符串中的参数部分，并实现url参数字符与参数对象的相互转化
+var vary = require('vary')  //响应头包含vary字段，且vary的内容对象含有User-Agent，格式为Vary:User-Adent,Cookie,进行方法重写之后，缓存服务器按照改写的目的方法分类缓存，可以将X-HEADER=REWRITE添加到vary中
 
 /**
  * Method Override:
