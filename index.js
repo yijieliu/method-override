@@ -50,7 +50,7 @@ module.exports = function methodOverride (getter, options) {
   var opts = options || {}
    //重构函数有getter和options两个参数，其中getter可以是自定义的function，string；options指定需要改写的方法
   // get the getter fn    
-  //通过一个选择表达式确定get特人的数据类型，创建请求数据重载的方法
+  //通过一个选择表达式确定getter的数据类型，创建请求数据重载的方法
   
   var get = typeof getter === 'function'
     ? getter
